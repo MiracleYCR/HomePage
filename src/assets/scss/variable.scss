@@ -1,7 +1,21 @@
 $red: red;
+$orange: rgba(255, 81, 0, 0.842);
 
 @mixin line-text-overflow {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@mixin main-wrapper {
+  height: auto;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+@mixin flex-layout($dir: column, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: $justify;
+  align-items: $align;
 }
