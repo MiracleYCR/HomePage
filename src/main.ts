@@ -1,33 +1,25 @@
-import { createApp } from 'vue'
+import { createSSRApp } from 'vue'
 
 import App from './App.vue'
-import router from './router/index'
-import { store, key } from './store/index'
+import { createSSRRouter } from './router/index'
+import { createSSRStore, key } from './store/index'
 
 import 'element-plus/dist/index.css'
 import ElementPlus, { ElMessage } from 'element-plus'
 
-import i18n from './lang/i18n'
-import airbnb from './db/index'
+import { createSSRI18n } from './lang/i18n'
 
-router.beforeEach((to, from, next) => {
-  airbnb.airbnbDB
-    .openStore({
-      ...airbnb.userObjectStore,
-      ...airbnb.languageObjectStore
-    })
-    .then((res: any) => {
-      console.log('create object respoisity initially', res)
-      next()
-    })
-})
+export function createApp () {
+  const app = createSSRApp(App)
+  const store = createSSRStore()
+  const router = createSSRRouter()
+  const i18n = createSSRI18n()
 
-const app = createApp(App)
+  app.config.globalProperties.$message = ElMessage
+  app.use(router)
+  app.use(store, key)
+  app.use(ElementPlus)
+  app.use(i18n)
 
-app.config.globalProperties.$message = ElMessage
-
-app.use(router)
-app.use(store, key)
-app.use(ElementPlus)
-app.use(i18n)
-app.mount('#app')
+  return { app, router, store }
+}

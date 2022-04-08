@@ -114,7 +114,14 @@ function getLanguage () {
     justify-content: right;
     height: 80px;
     align-items: center;
-    .el-menu-item{
+    .el-menu-item {
+      height: 80px;
+      font-size: 16px;
+      &:last-child{
+        padding-right: 0;
+      }
+    }
+    .el-sub-menu {
       height: 80px;
       font-size: 16px;
       &:last-child{

@@ -1,19 +1,19 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
 
-// import Home from '@/views/home/index.vue'
+import Home from '@/views/home/index.vue'
 import Mine from '@/views/mine/index.vue'
 import Login from '@/views/login/index.vue'
 
 const routes = [
-  // {
-  //   path: '/home',
-  //   name: 'Home',
-  //   component: Home,
-  //   meta: {
-  //     title: '',
-  //     keepAlive: false
-  //   }
-  // },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    meta: {
+      title: '',
+      keepAlive: false
+    }
+  },
   {
     path: '/mine',
     name: 'Mine',
@@ -34,9 +34,9 @@ const routes = [
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes
-})
-
-export default router
+export function createSSRRouter () {
+  return createRouter({
+    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
+    routes
+  })
+}

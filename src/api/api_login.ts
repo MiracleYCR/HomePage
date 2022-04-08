@@ -7,8 +7,6 @@ import airbnb from '@/db' // 引入数据库和对象仓库
 
 const storeName = Object.keys(airbnb.userObjectStore)[0]
 
-console.log(storeName)
-
 // mock接口：用户注册
 export async function userSignApi (params: any) {
   let result: IResultOr
@@ -131,7 +129,11 @@ export async function userLoginApi (params: any) {
   } else {
     // 手机号和密码正确后更新登录状态
     const token = new Date().getTime() + ''
-    document.cookie = `token=${token}`
+
+    if (!import.meta.env.SSR) {
+      document.cookie = `token=${token}`
+    }
+
     const obj = {
       status: 1,
       userId: correct.userId,
@@ -176,11 +178,13 @@ export async function userLogoutApi () {
 
       if (res) {
         res.forEach((item: any) => {
-          const cookie = document.cookie
-          const token = getQueryCookie(cookie, 'token')
-          if (item.token && item.token.indexOf(token) !== -1) {
-            // 存在相同token
-            resolve({ userId: item.userId })
+          if (!import.meta.env.SSR) {
+            const cookie = document.cookie
+            const token = getQueryCookie(cookie, 'token')
+            if (item.token && item.token.indexOf(token) !== -1) {
+              // 存在相同token
+              resolve({ userId: item.userId })
+            }
           }
         })
       }

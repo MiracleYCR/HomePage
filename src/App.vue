@@ -27,8 +27,12 @@ const showHeaderAndFooter = computed(() => {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/main.scss";
-.content_container {
-  height: calc(100vh - 418px);
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  .content_container {
+    min-height: calc(100vh - 402px);
+  }
 }
 </style>
