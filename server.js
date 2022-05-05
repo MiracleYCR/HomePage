@@ -55,10 +55,14 @@ async function createServer () {
        */
 
       // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
-      const appHtml = await render(url)
+      const manifest = require('./dist/client/ssr-manifest.json')
+      const { appHtml, state, preloadLinks } = await render(url, manifest)
 
       // 5. 注入渲染后的应用程序 HTML 到模板中。
-      const html = template.replace('<!--ssr-output-->', appHtml)
+      const html = template
+        .replace('<!--preload-links-->', preloadLinks)
+        .replace('<!--ssr-output-->', appHtml)
+        .replace("'<!--vuex-state-->'", JSON.stringify(state))
 
       // 6. 返回渲染后的 HTML。
       res
@@ -75,7 +79,9 @@ async function createServer () {
 
   app.listen(3000, () => {
     console.log(
-      `${isProd ? 'production' : 'development'}: server is running on 3000`
+      `${
+        isProd ? 'production' : 'development'
+      }: server is running on http://localhost:3000`
     )
   })
 }

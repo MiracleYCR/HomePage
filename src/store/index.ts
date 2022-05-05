@@ -9,6 +9,10 @@ export interface AllStateTypes {
   locale: any
   userStatus: number
   roomList: Array<any>
+  pageNo: number
+  pageSize: number
+  total: number
+  cityCode: string
 }
 
 // 定义 injection key
@@ -23,7 +27,11 @@ export function createSSRStore () {
     state: {
       locale: null, // 语言包
       userStatus: 0, // 登录态
-      roomList: []
+      roomList: [],
+      pageNo: 1,
+      pageSize: 6,
+      total: 0,
+      cityCode: 'hz'
     },
 
     mutations: {
@@ -51,13 +59,22 @@ export function createSSRStore () {
           }
         })
       },
-      getRoomList ({ commit, state }) {
-        fetchRoomList().then((res: IResultOr) => {
-          const { success, result } = res
-          if (success) {
-            commit('setRoomList', result.orders)
-            console.log(result.orders)
-          }
+      getRoomList ({ commit, state }, payload) {
+        const params = {
+          pageNo: payload.pageNo,
+          pageSize: state.pageSize,
+          cityCode: payload.cityCode || state.cityCode
+        }
+        state.pageNo = payload.pageNo
+        return new Promise(resolve => {
+          fetchRoomList(params).then((res: IResultOr) => {
+            const { success, result } = res
+            if (success) {
+              commit('setRoomList', result.orders.data)
+              state.total = result.total
+              resolve(true)
+            }
+          })
         })
       }
     }

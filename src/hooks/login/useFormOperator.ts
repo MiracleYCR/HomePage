@@ -23,7 +23,9 @@ function useFormOperator (router: any, proxy: any) {
       const { success, message, result } = res
       if (success) {
         store.commit('setUserStatus', result.status)
-        router.push('/')
+        router.push('/home')
+        // 刷新当前页面
+        // window.location.href = '/home'
         proxy.$message.success(message)
       } else {
         proxy.$message.error(message)

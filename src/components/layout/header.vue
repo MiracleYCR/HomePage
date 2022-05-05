@@ -1,29 +1,33 @@
 <template>
   <div class="header_container">
-    <img class="logo" src="../../assets/images/layout/logo.png">
+    <img class="logo" src="../../assets/images/layout/logo.png" />
     <el-menu
       class="el-menu-demo"
       mode="horizontal"
       :default-active="activeIndex"
       @select="handleSelect"
     >
-      <el-menu-item index="orders">{{t('header.orders')}}</el-menu-item>
-      <el-menu-item index="records">{{t('header.records')}}</el-menu-item>
+      <el-menu-item index="orders">{{ t('header.orders') }}</el-menu-item>
+      <el-menu-item index="records">{{ t('header.records') }}</el-menu-item>
       <el-sub-menu index="language">
-        <template #title>{{t('header.language')}}</template>
+        <template #title>{{ t('header.language') }}</template>
         <el-menu-item index="cn">中文</el-menu-item>
         <el-menu-item index="en">English</el-menu-item>
       </el-sub-menu>
 
       <el-sub-menu index="avatar" v-if="store.state.userStatus === 1">
         <template #title>
-          <img class="avatar" src="../../assets/images/layout/avatar.jpg" alt="个人中心">
+          <img
+            class="avatar"
+            src="../../assets/images/layout/avatar.jpg"
+            alt="个人中心"
+          />
         </template>
         <el-menu-item index="logout">退出</el-menu-item>
       </el-sub-menu>
 
       <el-menu-item index="login" v-else>
-        {{t('login.loginTab')}} / {{t('login.signTab')}}
+        {{ t('login.loginTab') }} / {{ t('login.signTab') }}
       </el-menu-item>
     </el-menu>
   </div>
@@ -81,7 +85,6 @@ function userLogout () {
 }
 
 function getLanguage () {
-  console.log(store.state.userStatus)
   fetchLanguageApi().then((res: IResultOr) => {
     const { success, result } = res
     if (success) {
@@ -100,7 +103,7 @@ function getLanguage () {
   height: 80px;
   position: relative;
   align-items: center;
-  .logo{
+  .logo {
     width: 200px;
     height: auto;
     position: absolute;
@@ -108,7 +111,7 @@ function getLanguage () {
     left: 15px;
     z-index: 10;
   }
-  .el-menu{
+  .el-menu {
     width: inherit;
     padding: 0 25px;
     justify-content: right;
@@ -117,24 +120,24 @@ function getLanguage () {
     .el-menu-item {
       height: 80px;
       font-size: 16px;
-      &:last-child{
+      &:last-child {
         padding-right: 0;
       }
     }
     .el-sub-menu {
       height: 80px;
       font-size: 16px;
-      &:last-child{
+      &:last-child {
         padding-right: 0;
       }
     }
-    .el-sub-menu__title{
+    .el-sub-menu__title {
       font-size: 16px;
     }
   }
-  .avatar{
-    box-shadow: rgb(235 235 235) 0px 0px 0px 2px ;
-    border-radius: 50% ;
+  .avatar {
+    box-shadow: rgb(235 235 235) 0px 0px 0px 2px;
+    border-radius: 50%;
   }
 }
 </style>

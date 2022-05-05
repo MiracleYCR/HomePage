@@ -10,10 +10,16 @@
         </el-tabs>
         <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules">
           <el-form-item prop="mobile">
-            <el-input :placeholder="t('login.placeMobile')" v-model="ruleForm.mobile"></el-input>
+            <el-input
+              :placeholder="t('login.placeMobile')"
+              v-model="ruleForm.mobile"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input :placeholder="t('login.placePass')" v-model="ruleForm.password"></el-input>
+            <el-input
+              :placeholder="t('login.placePass')"
+              v-model="ruleForm.password"
+            ></el-input>
           </el-form-item>
           <el-form-item>
             <el-button class="login_btn" type="primary" @click="onSignUp">
@@ -38,11 +44,7 @@ const { t } = useI18n()
 const router = useRouter()
 const { proxy }: any = getCurrentInstance()
 
-const {
-  rules,
-  ruleForm,
-  ruleFormRef
-} = useFormProperties(t)
+const { rules, ruleForm, ruleFormRef } = useFormProperties(t)
 
 const { userSignin, userLogin } = useFormOperator(router, proxy)
 
@@ -50,7 +52,8 @@ const activeName = ref('login')
 const loginBtnText = ref(t('login.loginBtn'))
 function onTabClick (evt: any) {
   const { name } = evt.props
-  loginBtnText.value = name === 'login' ? t('login.loginBtn') : t('login.signBtn')
+  loginBtnText.value =
+    name === 'login' ? t('login.loginBtn') : t('login.signBtn')
 }
 
 function onSignUp () {
@@ -76,8 +79,8 @@ function onSignUp () {
   height: 100vh;
   @include flex-layout(row);
   .left {
-    flex:30;
-    height:100%;
+    flex: 30;
+    height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 60% center;
@@ -102,24 +105,24 @@ function onSignUp () {
       .el-input__inner {
         height: 44px;
         line-height: 42px;
-        background: #F6F6F8;
+        background: #f6f6f8;
         border-radius: 40px;
         border: none;
       }
-      .el-tabs__nav-wrap::after{
+      .el-tabs__nav-wrap::after {
         display: none;
       }
-      .el-tabs__item{
+      .el-tabs__item {
         font-size: 22px;
         color: #999;
-        &.is-active{
+        &.is-active {
           color: $orange;
         }
       }
-      .el-tabs__active-bar{
-        background-color:$orange;
+      .el-tabs__active-bar {
+        background-color: $orange;
       }
-      .el-form-item__error{
+      .el-form-item__error {
         left: 15px;
       }
     }

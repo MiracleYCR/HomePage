@@ -1,14 +1,10 @@
 import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
 
-import Home from '@/views/home/index.vue'
-import Mine from '@/views/mine/index.vue'
-import Login from '@/views/login/index.vue'
-
 const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home,
+    component: () => import('@/views/home/homeIndex.vue'),
     meta: {
       title: '',
       keepAlive: false
@@ -17,7 +13,7 @@ const routes = [
   {
     path: '/mine',
     name: 'Mine',
-    component: Mine,
+    component: () => import('@/views/mine/mineIndex.vue'),
     meta: {
       title: '',
       keepAlive: false
@@ -26,7 +22,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('@/views/login/loginIndex.vue'),
     meta: {
       title: '',
       keepAlive: false

@@ -40,7 +40,7 @@ class HTTP {
     params: AxiosRequestConfig
   ): Promise<T> {
     return HTTP.axiosInstance
-      .get(url, params)
+      .get(url, { params })
       .then(resp => resp.data)
       .catch()
   }

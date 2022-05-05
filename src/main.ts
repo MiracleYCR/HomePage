@@ -7,6 +7,7 @@ import { createSSRStore, key } from './store/index'
 import 'element-plus/dist/index.css'
 import ElementPlus, { ElMessage } from 'element-plus'
 
+import { sync } from 'vuex-router-sync'
 import { createSSRI18n } from './lang/i18n'
 
 export function createApp () {
@@ -14,6 +15,9 @@ export function createApp () {
   const store = createSSRStore()
   const router = createSSRRouter()
   const i18n = createSSRI18n()
+
+  // 将 router 的信息同步到 store 中
+  sync(store, router)
 
   app.config.globalProperties.$message = ElMessage
   app.use(router)
