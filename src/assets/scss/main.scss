@@ -3,8 +3,16 @@ body, html, p{
   margin: 0;
 }
 
+.container{
+  min-height: calc(100vh - 402px);
+}
+
 .el-pagination {
   display: flex;
   justify-content: center;
   margin: 20px auto;
+}
+
+.ml-10{
+  margin-left: 10px;
 }

@@ -52,6 +52,7 @@ export default defineComponent({
     font-size: 16px;
     margin: 5px 0 25px 0;
   }
+
   .main-wrapper {
     @include main-wrapper();
   }

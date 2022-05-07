@@ -27,3 +27,16 @@ export function createApp () {
 
   return { app, router, store }
 }
+
+export function asyncDataFilter (actived: any, store: any, router: any) {
+  return Promise.all(
+    actived.map((comp: any) => {
+      if (comp.asyncData) {
+        return comp.asyncData({
+          store,
+          route: router.currentRoute
+        })
+      }
+    })
+  )
+}

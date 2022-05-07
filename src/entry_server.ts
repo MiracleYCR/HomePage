@@ -1,4 +1,4 @@
-import { createApp } from './main'
+import { createApp, asyncDataFilter } from './main'
 import { renderToString } from 'vue/server-renderer'
 
 function renderLinks (modules: any, manifest: any) {
@@ -49,16 +49,7 @@ export async function render (url: string, manifest: any) {
     Object.values(record.components)
   )
 
-  await Promise.all(
-    matchedComponents.map((comp: any) => {
-      if (comp.asyncData) {
-        return comp.asyncData({
-          store,
-          route: router.currentRoute
-        })
-      }
-    })
-  )
+  await asyncDataFilter(matchedComponents, store, router.currentRoute)
 
   const context: any = {}
   const appHtml = await renderToString(app, context)

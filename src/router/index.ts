@@ -27,6 +27,15 @@ const routes = [
       title: '',
       keepAlive: false
     }
+  },
+  {
+    path: '/roomDetail/:id',
+    name: 'RoomDetail',
+    component: () => import('@/views/detail/detailIndex.vue'),
+    meta: {
+      title: '',
+      keepAlive: false
+    }
   }
 ]
 

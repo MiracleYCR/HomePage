@@ -6,7 +6,7 @@
       class="item"
       v-for="(item, index) in store.state.roomList"
       :key="index"
-      @click="onClickHomeItem"
+      @click="goToDetail(item)"
     >
       <img :src="item.pictureUrl" alt="" />
       <p class="item_title">{{ item.title }}</p>
@@ -19,13 +19,18 @@
 
 <script setup lang="ts">
 import { useStore } from '@/store'
+import { useRouter } from 'vue-router'
 import HomeTab from './homeTab.vue'
 import Pagination from '@/components/common/pagination.vue'
 
 const store = useStore()
+const router = useRouter()
 
-function onClickHomeItem () {
-  console.log('123123123')
+function goToDetail (item: any) {
+  const { id } = item
+  router.push({
+    path: `/roomDetail/${id}`
+  })
 }
 
 function onChangePage (pageNo: number) {

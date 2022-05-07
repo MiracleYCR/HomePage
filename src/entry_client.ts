@@ -1,10 +1,10 @@
 import airbnb from './db/index'
-import { createApp } from './main'
+import { createApp, asyncDataFilter } from './main'
 
 const { app, router, store } = createApp()
 
-if (window.__INITIAL_STATE__) {
-  store.replaceState(window.__INITIAL_STATE__)
+if ((window as any).__INITIAL_STATE__) {
+  store.replaceState((window as any).__INITIAL_STATE__)
 }
 
 router.beforeEach((to, from, next) => {
@@ -36,16 +36,7 @@ router.isReady().then(() => {
       return next()
     }
 
-    Promise.all(
-      actived.map((comp: any) => {
-        if (comp.asyncData) {
-          return comp.asyncData({
-            store,
-            route: router.currentRoute
-          })
-        }
-      })
-    ).then(() => {
+    asyncDataFilter(actived, store, router).then(() => {
       next()
     })
   })
